@@ -12,6 +12,8 @@ const generateId = () => {
 
 function App() {
   const [tasks, setTasks] = useState([]);
+
+  
   const addTask = (title, state) => {
     const newTask = {
       id: generateId(),
@@ -35,6 +37,12 @@ function App() {
     });
   };
 
+  const deleteTask = (id) => {
+    setTasks((existingTasks) => {
+      return existingTasks.filter((task) => task.id !== id);
+    });
+  };
+
   return (
     <>
       {
@@ -47,6 +55,7 @@ function App() {
               onAddTask={addTask}
               tasks={tasks.filter((t) => t.state === "Pendente")}
               onTaskUpdate={updateTask}
+              onDeleteTask={deleteTask}
             />
             <Tasklist
               title="Fazendo"
@@ -54,6 +63,7 @@ function App() {
               onAddTask={addTask}
               tasks={tasks.filter((t) => t.state === "Fazendo")}
               onTaskUpdate={updateTask}
+              onDeleteTask={deleteTask}
             />
             <Tasklist
               title="Completa"
@@ -61,6 +71,7 @@ function App() {
               onAddTask={addTask}
               tasks={tasks.filter((t) => t.state === "Completa")}
               onTaskUpdate={updateTask}
+              onDeleteTask={deleteTask}
             />
           </div>
         </div>
